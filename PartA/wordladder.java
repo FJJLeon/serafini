@@ -38,8 +38,9 @@ public class wordladder {
 		String word2 = words[1];
 		//to save used word
 		Set<String> used_dict = new HashSet<>();
-		Stack<String> loopStack = new Stack<>();
+		used_dict.add(word1);
 		
+		Stack<String> loopStack = new Stack<>();
 		while (!ladder.isEmpty()) {
 			//clear temporary stack
 			while (!loopStack.isEmpty()) 
