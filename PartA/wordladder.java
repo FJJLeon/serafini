@@ -15,10 +15,10 @@ public class wordladder {
 		String[] words = new String[2];
 		while (true) {
 			//input two words
-			read_word(words);
+			read_word(words, dict);
 			//check word valid
 			while (!word_valid(words)) {
-				read_word(words);
+				read_word(words, dict);
 			}
 			
 			Queue<Stack<String>> ladder = new LinkedList<Stack<String>>();
@@ -104,7 +104,7 @@ public class wordladder {
 			dict_name = in.nextLine();
 		}
 		//in.close();
-		File file = new File("src\\PartA\\" + dict_name);
+		File file = new File("src\\PartA\\" +dict_name);
 		try {
 			//read by line
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -125,38 +125,59 @@ public class wordladder {
 	    */
 	}
 
-	private static void read_word(String[] words) {
+	private static void read_word(String[] words, Set<String> dict) {
 		//read word1 and word2, check \n
 		Scanner in = new Scanner(System.in);
 		System.out.print("Word #1 (or Enter to quit):");
 		String word1 = new String(in.nextLine());
-		words[0] = word1;
 		
 		if (word1.length() == 0) {
 			//if \n, exit
 			System.out.println("Have a nice day.");
 			System.exit(0);
 		}
+		while (!dict.contains(word1)) {
+			// if not found 
+			System.out.print("Can not find word #1 in given dictionary.\nWord #1 (or Enter to quit):");
+			word1 = in.nextLine();
+			if (word1.length() == 0) {
+				//if \n, exit
+				System.out.println("Have a nice day.");
+				System.exit(0);
+			}
+		}
+		words[0] = word1;
 		
 		System.out.print("Word #2 (or Enter to quit):");
 		String word2 = new String(in.nextLine());
-		words[1] = word2;
+		
 		if (word2.length() == 0) {
 			//if \n, exit
 			System.out.println("Have a nice day.");
 			System.exit(0);
 		}
+		while (!dict.contains(word1)) {
+			//if not found
+			System.out.print("Can not find word #1 in given dictionary.\nWord #1 (or Enter to quit):");
+			word1 = in.nextLine();
+			if (word2.length() == 0) {
+				//if \n, exit
+				System.out.println("Have a nice day.");
+				System.exit(0);
+			}
+		}
+		words[1] = word2;
 	}
 	
 	private static boolean word_valid(String[] words) {
 		//check words length is not same
 		if (words[0].length() != words[1].length()) {
-			System.out.print("The two words must be the same length.");
+			System.out.println("The two words must be the same length.");
 			return false;
 		}
 		//check words is not same
 		if (words[0].equals(words[1])) {
-			System.out.print("The two words must be different.");
+			System.out.println("The two words must be different.");
 			return false;
 		}
 		return true;
