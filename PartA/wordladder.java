@@ -1,6 +1,5 @@
 package PartA;
 
-import java.nio.file.Paths;
 import java.util.*;
 import java.io.*;
 
@@ -10,15 +9,15 @@ public class wordladder {
 		//save dictionary
 		Set<String> dict = new HashSet<>();
 		//input the dictionary
-		read_dict(dict);
+		readDict(dict);
 		
 		String[] words = new String[2];
 		while (true) {
 			//input two words
-			read_word(words, dict);
+			readWord(words, dict);
 			//check word valid
-			while (!word_valid(words)) {
-				read_word(words, dict);
+			while (!wordIsvalid(words)) {
+				readWord(words, dict);
 			}
 			
 			Queue<Stack<String>> ladder = new LinkedList<Stack<String>>();
@@ -33,7 +32,7 @@ public class wordladder {
 	}
 
 
-	private static void BFS(Queue<Stack<String>> ladder, String[] words, Set<String> dict) {
+	public static void BFS(Queue<Stack<String>> ladder, String[] words, Set<String> dict) {
 		String word1 = words[0];
 		String word2 = words[1];
 		//to save used word
@@ -87,7 +86,7 @@ public class wordladder {
 		return;
 	}
 
-	private static void read_dict(Set<String> dict) {
+	public static void readDict(Set<String> dict) {
 		// a set contain all valid name of dictionary
 		Set<String> dicts = new HashSet<>() {{
 			add("dictionary.txt");
@@ -126,7 +125,7 @@ public class wordladder {
 	    */
 	}
 
-	private static void read_word(String[] words, Set<String> dict) {
+	public static void readWord(String[] words, Set<String> dict) {
 		//read word1 and word2, check \n
 		Scanner in = new Scanner(System.in);
 		System.out.print("Word #1 (or Enter to quit):");
@@ -170,15 +169,15 @@ public class wordladder {
 		words[1] = word2;
 	}
 	
-	private static boolean word_valid(String[] words) {
+	public static boolean wordIsvalid(String[] words) {
 		//check words length is not same
 		if (words[0].length() != words[1].length()) {
-			System.out.println("The two words must be the same length.");
+			System.out.print("The two words must be the same length.\n");
 			return false;
 		}
 		//check words is not same
 		if (words[0].equals(words[1])) {
-			System.out.println("The two words must be different.");
+			System.out.print("The two words must be different.\n");
 			return false;
 		}
 		return true;
